@@ -1,18 +1,27 @@
-import admin from "firebase-admin";
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import firebase from "../../lib/firebase";
 
-const serviceAccount = JSON.parse(
-  process.env.NEXT_PUBLIC_FIREBASE_KEY
-);
-
-try {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.NNEXT_PUBLIC_FIREBASE_URL,
-  });
-} catch(err) {
-  if ( err.message.indexOf("already exists") === -1 ) {
-    console.log("firebase err:", err.stack);
+export default async function handler(req, res) {
+  try{
+    const snapshot = await firebase.collection("resources").get();
+    //loop thru each doc in returned array in snapshot
+    let output = [];
+    snapshot.forEach(
+      (doc) =>{
+        output.push(
+          {
+            id: doc.id,
+            data: doc.data()
+          }
+        );
+      }
+    );
+    console.log(output);
+    res.status(200);
+    res.setHeader("Content-Type", "application/json");
+    res.json({output});
+  } catch(err){
+    console.error(err);
+    res.status(500).end(err.message);
   }
 }
-
-export default admin.firestore();
