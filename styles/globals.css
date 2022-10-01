@@ -24,3 +24,18 @@ a {
     background: black;
   }
 }
+
+footer{
+  background-color: #0d6efd;
+  border:2px solid black;
+  color:white;
+  margin-top:10px;
+}
+
+nav{
+  background-color: #0d6efd;
+  border:2px solid black;
+  color:white;
+  padding-top:15px;
+  margin-bottom:10px;
+}

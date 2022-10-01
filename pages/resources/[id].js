@@ -1,5 +1,5 @@
 import {getResourceIds, getResourceData} from '../../lib/resources';
-import Image from 'next/image'
+import Layout from '../../components/layout';
 
 //every next js app that uses dynamic urls MUST INCLUDE GETSTATICPATHS in dynamic page 
 //this function calls getResourceData
@@ -27,6 +27,7 @@ export async function getStaticPaths() {
 export default function Entry({ itemData }) {
     console.log(itemData);
     return (
+      <Layout>
       <article className="card col-6 mx-auto text-center">
         <div className="card-body">
           <h5 className="card-title">{itemData.data.name}</h5>
@@ -38,5 +39,6 @@ export default function Entry({ itemData }) {
           }
         </div>
       </article>
+      </Layout>
     );
   }
